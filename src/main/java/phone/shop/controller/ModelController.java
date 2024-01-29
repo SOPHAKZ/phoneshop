@@ -35,7 +35,7 @@ public class ModelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable("id") int id){
+    public ResponseEntity<?> getById(@PathVariable("id") Long id){
         Model model = modelService.getById(id);
         return ResponseEntity.ok(ModelMapper.INSTANCE.toModelDTO(model));
     }

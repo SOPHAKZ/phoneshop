@@ -1,6 +1,7 @@
 package phone.shop.service.impl;
 
 
+import lombok.extern.java.Log;
 import phone.shop.exception.ResourceNotFoundResponse;
 import phone.shop.model.Brand;
 
@@ -26,13 +27,13 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand getById(int id) {
+    public Brand getById(Long id) {
         return brandRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundResponse("Brand",id));
     }
 
     @Override
-    public Brand update(int id, Brand source) {
+    public Brand update(Long id, Brand source) {
         Brand targent = getById(id);
 //        source.setId(id);
         //BrandMapper.INSTANCE.update(targent,source);
@@ -41,9 +42,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void deleted(int id) {
+    public void deleted(Long id) {
         Brand brand = getById(id);
-        brandRepository.delete(brand);
+        brand.setActive(false);
+        brandRepository.save(brand);
         log.info("brand with id = %d is deleted".formatted(id));
     }
 

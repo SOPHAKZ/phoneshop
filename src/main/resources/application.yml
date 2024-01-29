@@ -3,6 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/phoneshop
     username: postgres
     password: deve33
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,3 +13,7 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+springdoc:
+  api-docs:
+    path: /api-docs
