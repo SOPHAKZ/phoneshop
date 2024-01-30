@@ -10,7 +10,7 @@ import phone.shop.service.BrandService;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-29T13:55:00+0700",
+    date = "2024-01-30T15:05:57+0700",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 @Component

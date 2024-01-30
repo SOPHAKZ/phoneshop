@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.java</groupId>
 	<artifactId>PhoneShop</artifactId>
-	<version>0.0.1</version>
+	<version>1</version>
 	<name>PhoneShop</name>
 	<description>Phone Shop</description>
 	<properties>

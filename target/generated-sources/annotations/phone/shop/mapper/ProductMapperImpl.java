@@ -2,77 +2,90 @@ package phone.shop.mapper;
 
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
-import phone.shop.dto.ProductDTO;
-import phone.shop.dto.ProductDTO2;
+import phone.shop.dto.ProductDisplayDTO;
+import phone.shop.dto.ProductRequestDTO;
 import phone.shop.model.Color;
 import phone.shop.model.Model;
 import phone.shop.model.Product;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-29T13:56:52+0700",
+    date = "2024-01-30T15:07:16+0700",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 @Component
 public class ProductMapperImpl implements ProductMapper {
 
     @Override
-    public Product toEntity(ProductDTO dto) {
+    public Product toEntity(ProductRequestDTO dto) {
         if ( dto == null ) {
             return null;
         }
 
         Product product = new Product();
 
-        product.setModel( productDTOToModel( dto ) );
-        product.setColor( productDTOToColor( dto ) );
+        product.setModel( productRequestDTOToModel( dto ) );
+        product.setColor( productRequestDTOToColor( dto ) );
         product.setName( dto.getName() );
 
         return product;
     }
 
     @Override
-    public ProductDTO2 toDTO(Product entity) {
+    public ProductRequestDTO toDTO(Product entity) {
         if ( entity == null ) {
             return null;
         }
 
-        ProductDTO2 productDTO2 = new ProductDTO2();
+        ProductRequestDTO productRequestDTO = new ProductRequestDTO();
 
-        Long id = entityModelId( entity );
-        if ( id != null ) {
-            productDTO2.setModelId( id.intValue() );
-        }
-        productDTO2.setColorId( entityColorId( entity ) );
-        productDTO2.setId( entity.getId() );
-        productDTO2.setName( entity.getName() );
-        productDTO2.setSalePrice( entity.getSalePrice() );
-        productDTO2.setAvailableUnit( entity.getAvailableUnit() );
-        productDTO2.setImagePath( entity.getImagePath() );
+        productRequestDTO.setModelId( entityModelId( entity ) );
+        productRequestDTO.setColorId( entityColorId( entity ) );
+        productRequestDTO.setName( entity.getName() );
 
-        return productDTO2;
+        return productRequestDTO;
     }
 
-    protected Model productDTOToModel(ProductDTO productDTO) {
-        if ( productDTO == null ) {
+    @Override
+    public ProductDisplayDTO productDisplayDTO(Product product) {
+        if ( product == null ) {
+            return null;
+        }
+
+        ProductDisplayDTO productDisplayDTO = new ProductDisplayDTO();
+
+        productDisplayDTO.setModel( productModelName( product ) );
+        productDisplayDTO.setColor( productColorName( product ) );
+        if ( product.getId() != null ) {
+            productDisplayDTO.setId( product.getId() );
+        }
+        productDisplayDTO.setName( product.getName() );
+        productDisplayDTO.setSalePrice( product.getSalePrice() );
+        productDisplayDTO.setImagePath( product.getImagePath() );
+
+        return productDisplayDTO;
+    }
+
+    protected Model productRequestDTOToModel(ProductRequestDTO productRequestDTO) {
+        if ( productRequestDTO == null ) {
             return null;
         }
 
         Model model = new Model();
 
-        model.setId( productDTO.getModelId() );
+        model.setId( productRequestDTO.getModelId() );
 
         return model;
     }
 
-    protected Color productDTOToColor(ProductDTO productDTO) {
-        if ( productDTO == null ) {
+    protected Color productRequestDTOToColor(ProductRequestDTO productRequestDTO) {
+        if ( productRequestDTO == null ) {
             return null;
         }
 
         Color color = new Color();
 
-        color.setId( productDTO.getColorId() );
+        color.setId( productRequestDTO.getColorId() );
 
         return color;
     }
@@ -105,5 +118,35 @@ public class ProductMapperImpl implements ProductMapper {
             return null;
         }
         return id;
+    }
+
+    private String productModelName(Product product) {
+        if ( product == null ) {
+            return null;
+        }
+        Model model = product.getModel();
+        if ( model == null ) {
+            return null;
+        }
+        String name = model.getName();
+        if ( name == null ) {
+            return null;
+        }
+        return name;
+    }
+
+    private String productColorName(Product product) {
+        if ( product == null ) {
+            return null;
+        }
+        Color color = product.getColor();
+        if ( color == null ) {
+            return null;
+        }
+        String name = color.getName();
+        if ( name == null ) {
+            return null;
+        }
+        return name;
     }
 }
