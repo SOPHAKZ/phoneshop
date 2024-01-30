@@ -8,9 +8,9 @@ public interface BrandService {
 
     Brand save(Brand brand);
 
-    Brand getById(int id);
-    Brand update(int id, Brand source);
-    void deleted(int id);
+    Brand getById(Long id);
+    Brand update(Long id, Brand source);
+    void deleted(Long id);
 
     List<Brand> getBrands();
 }

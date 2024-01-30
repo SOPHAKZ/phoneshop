@@ -8,7 +8,7 @@ import java.util.Map;
 public interface ModelService {
 
     Model save(Model model);
-    Model getById(int id);
+    Model getById(Long id);
 //    Page<Model> getModels(Map<String,String> params);
 
     Page<Model> getModels(Map<String,String> params);

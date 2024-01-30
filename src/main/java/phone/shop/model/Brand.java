@@ -13,13 +13,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Brand {
     @Id
-    @GeneratedValue(generator = "brand_seq")
-    @SequenceGenerator(name = "brand_seq", initialValue = 1,sequenceName = "brand_seq")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "brand_name")
     private String name;
-
+    @Column(columnDefinition = "boolean default true")
+    private Boolean active;
 
 
 }

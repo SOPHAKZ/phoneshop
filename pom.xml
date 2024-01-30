@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.java</groupId>
 	<artifactId>PhoneShop</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>PhoneShop</name>
 	<description>Phone Shop</description>
 	<properties>
@@ -68,6 +68,18 @@
 			<version>4.4</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+		</dependency>
+
+
 
 	</dependencies>
 
@@ -77,6 +89,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<skip>true</skip>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

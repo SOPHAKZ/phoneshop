@@ -9,12 +9,13 @@ import javax.persistence.*;
 @Table(name = "models")
 public class Model {
     @Id
-    @GeneratedValue(generator = "model_seq_generator")
-    @SequenceGenerator(name = "model_seq_generator", initialValue = 1,sequenceName = "model_seq")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "model_name")
     private String name;
+
+    private Integer yearMade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")

@@ -10,8 +10,8 @@ import phone.shop.service.BrandService;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-24T10:45:43+0700",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.36.0.v20231114-0937, environment: Java 17.0.9 (Eclipse Adoptium)"
+    date = "2024-01-29T13:55:00+0700",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.6 (Oracle Corporation)"
 )
 @Component
 public class ModelMapperImpl implements ModelMapper {
@@ -28,12 +28,11 @@ public class ModelMapperImpl implements ModelMapper {
         Model model = new Model();
 
         if ( dto.getBrandId() != null ) {
-            model.setBrand( brandService.getById( dto.getBrandId().intValue() ) );
+            model.setBrand( brandService.getById( dto.getBrandId().longValue() ) );
         }
-        if ( dto.getId() != null ) {
-            model.setId( dto.getId() );
-        }
+        model.setId( dto.getId() );
         model.setName( dto.getName() );
+        model.setYearMade( dto.getYearMade() );
 
         return model;
     }
@@ -46,14 +45,18 @@ public class ModelMapperImpl implements ModelMapper {
 
         ModelDTO modelDTO = new ModelDTO();
 
-        modelDTO.setBrandId( entityBrandId( entity ) );
+        Long id = entityBrandId( entity );
+        if ( id != null ) {
+            modelDTO.setBrandId( id.intValue() );
+        }
         modelDTO.setId( entity.getId() );
         modelDTO.setName( entity.getName() );
+        modelDTO.setYearMade( entity.getYearMade() );
 
         return modelDTO;
     }
 
-    private Integer entityBrandId(Model model) {
+    private Long entityBrandId(Model model) {
         if ( model == null ) {
             return null;
         }
@@ -61,7 +64,7 @@ public class ModelMapperImpl implements ModelMapper {
         if ( brand == null ) {
             return null;
         }
-        Integer id = brand.getId();
+        Long id = brand.getId();
         if ( id == null ) {
             return null;
         }
