@@ -36,18 +36,18 @@ public class GlobalExceptionHandler {
 				.body(response);
 	}
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Map<String, List<String>>> handleValidationErrors(MethodArgumentNotValidException ex) {
-		List<String> errors = ex.getBindingResult().getFieldErrors()
-				.stream().map(FieldError::getDefaultMessage).collect(Collectors.toList());
-		return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
-	}
-
-	private Map<String, List<String>> getErrorsMap(List<String> errors) {
-		Map<String, List<String>> errorResponse = new HashMap<>();
-		errorResponse.put("errors", errors);
-		return errorResponse;
-	}
+//	@ExceptionHandler(MethodArgumentNotValidException.class)
+//	public ResponseEntity<Map<String, List<String>>> handleValidationErrors(MethodArgumentNotValidException ex) {
+//		List<String> errors = ex.getBindingResult().getFieldErrors()
+//				.stream().map(FieldError::getDefaultMessage).collect(Collectors.toList());
+//		return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+//	}
+//
+//	private Map<String, List<String>> getErrorsMap(List<String> errors) {
+//		Map<String, List<String>> errorResponse = new HashMap<>();
+//		errorResponse.put("errors", errors);
+//		return errorResponse;
+//	}
 	@ExceptionHandler(ApiException.class)
 	public ResponseEntity<?> handleApiException(ApiException e) {
 //		ErrorResponse errorResponse = new ErrorResponse(e.getStatus().getReasonPhrase(),e.getMessage());
