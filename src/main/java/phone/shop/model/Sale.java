@@ -13,6 +13,4 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime soldDate;
-    private String customer;
-    private String customerPhone;
 }

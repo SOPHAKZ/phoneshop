@@ -19,4 +19,5 @@ public class SaleDetail {
     @JoinColumn(name = "product_id")
     private Product product;
     private BigDecimal amount;
+    private Integer unit;
 }
