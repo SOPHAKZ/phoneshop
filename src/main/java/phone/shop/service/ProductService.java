@@ -17,6 +17,6 @@ public interface ProductService {
     Product setPrice(Long id, BigDecimal price);
     Page<Product> getProducts(Map<String,String> param);
     List<ProductDisplayDTO> toProductDisplayDTO(List<Product> products);
-
-//    PageDTO<>
+    boolean hasAvailableUnit(Long productId,Integer orderUnit);
+    boolean hasSetSalePrice(Long productId);
 }

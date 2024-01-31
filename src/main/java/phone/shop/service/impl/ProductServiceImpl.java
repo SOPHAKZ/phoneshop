@@ -5,9 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import phone.shop.dto.ProductDisplayDTO;
 import phone.shop.dto.ProductImportDTO;
+import phone.shop.exception.ApiException;
 import phone.shop.exception.ResourceNotFoundResponse;
 import phone.shop.mapper.ProductImportMapper;
 import phone.shop.mapper.ProductMapper;
@@ -25,10 +27,8 @@ import phone.shop.util.PageUtils;
 
 import java.awt.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -123,5 +123,29 @@ public class ProductServiceImpl implements ProductService {
 
         }
         return displayDTOS;
+    }
+
+    @Override
+    public boolean hasAvailableUnit(Long productId, Integer orderUnit) {
+        Product product = getProductById(productId);
+        if(product.getAvailableUnit() < orderUnit){
+            throw new ApiException(HttpStatus.BAD_REQUEST,
+                    "Product (%s) with id = %d doesn't have enough unit in stock !"
+                            .formatted(product.getName(),productId)
+                    );
+        }
+        return true;
+    }
+
+    @Override
+    public boolean hasSetSalePrice(Long productId) {
+        Product product = getProductById(productId);
+        if(Objects.isNull(product.getSalePrice())){
+            throw new ApiException(
+                    HttpStatus.BAD_REQUEST,
+                    "Product (%s) with id = %d haven't set sale price yet !"
+            );
+        }
+        return true;
     }
 }
